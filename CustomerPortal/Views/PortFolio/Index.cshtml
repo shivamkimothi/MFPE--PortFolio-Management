@@ -1,0 +1,104 @@
+﻿@using CustomerPortal.Models.ViewModel
+@model CustomerPortal.Models.ViewModel.CompleteDetails
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    
+</div>
+<div>
+    <div>
+        <a  asp-action="Logout" class="btn btn-success float-md-right ">LogOut</a>
+        <h1 class="shadow-lg p-3 mb-3 bg-white rounded">PortFolioDetails</h1>
+
+    </div>
+    <hr />
+    <div class="shadow-lg p-3 mb-3 bg-white rounded">
+        <h5>PortFolioID : @Model.PFId</h5>
+    </div>
+    <div class="shadow-lg p-3 mb-3 bg-white rounded">
+        <h5>NetWorth : $@Model.NetWorth</h5>
+    </div>
+    <div class="shadow-lg p-3 mb-3 bg-white rounded">
+        <h4> Stock List</h4>
+        <table class="table table-striped">
+
+            <thead class="table-dark">
+                <tr class="justify-content-center text-center">
+                    <th scope="col" style=" width: 180px;">#</th>
+                    <th scope="col" style=" width: 180px;">Stock Name</th>
+                    <th scope="col" style=" width: 180px;">Stock Price</th>
+                    <th scope="col" style=" width: 180px;">Stock Count</th>
+                    <th scope="col" style=" width: 180px;">Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model.FinalStockList.Any() == false)
+                    {
+                        <tr><th colspan=5>You do not have any Stocks</th></tr>
+                    }
+                    else
+                    {
+                        int c = 1;
+                        @foreach (CompleteStockDetails x in Model.FinalStockList)
+                        {
+                            <tr class="justify-content-center text-center">
+                                <th scope="row">@c</th>
+                                <td style=" width: 180px;">@x.StockName</td>
+                                <td style=" width: 180px;">$@x.StockPrice</td>
+                                <td style=" width: 180px;">@x.StockCount</td>
+                                <td style=" width: 180px;"><a asp-action="SellStock" asp-route-name="@x.StockName" class="btn btn-success">Sell</a></td>
+                            </tr>
+                            c = c + 1;
+                        }
+                    }
+                  }
+            </tbody>
+        </table>
+    </div>
+    <div class="shadow-lg p-3 mb-3 bg-white rounded">
+        <h4> Mutual Fund List</h4>
+        <table class="table table-striped">
+
+            <thead class="table-dark">
+                <tr class="justify-content-center text-center">
+                    <th scope="col" style=" width: 180px;">#</th>
+                    <th scope="col" style=" width: 180px;">Mutual Fund Name</th>
+                    <th scope="col" style=" width: 180px;">Mutual Fund Price</th>
+                    <th scope="col" style=" width: 180px;">Mutual Fund Units</th>
+                    <th scope="col" style=" width: 180px;">Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int q = 1;
+                    if (Model.FinalMutualFundList.Any() == false)
+                    {
+                        <tr><th colspan=5>You do not have any Mutual Funds</th></tr>
+                    }
+                    else
+                    {
+                        @foreach (CompleteMutualFundDetails x in Model.FinalMutualFundList)
+                        {
+                            <tr class="justify-content-center text-center">
+                                <th scope="row">@q</th>
+                                <td style=" width: 180px;">@x.MutualFundName</td>
+                                <td style=" width: 180px;">$@x.MutualFundPrice.</td>
+                                <td style=" width: 180px;">@x.MutualFundUnits</td>
+                                <td style=" width: 180px;"><a asp-action="SellMutualFund" asp-route-name="@x.MutualFundName" class="btn btn-success">Sell</a></td>
+                            </tr>
+                            q = q + 1;
+
+                        }
+                    }
+                  }
+            </tbody>
+        </table>
+    </div>
+    
+
+</div>
+
